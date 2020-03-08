@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Metas -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Links -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+    <script src="js/vue.js"></script>
+    <!-- Styles -->
+    <style>
+      .jumbotron {
+        background-color: #2d2d2d;
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .jumbotron p {
+        color: white;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        color: white;
+        text-align: center;
+      }
+      .jumbotron input {
+        margin-bottom: 12px;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <div class="jumbotron">
+        <h1>Log de textos</h1>
+        <p>Escreva algo no input:</p>
+        <input
+          type="text"
+          name="inputTxt"
+          v-model="captarTexto.textoDigitado"
+          placeholder="Exemplo: fruta, caderno, chuva, bola..."
+        />
+        <button
+          type="submit"
+          class="btn btn-primary"
+          v-on:click="enviarTexto()"
+          v-if="captarTexto.textoDigitado.length < 20"
+        >
+          Salvar
+        </button>
+        <div class="alert alert-danger" v-if="captarTexto.textoDigitado.length > 20">
+          Muito texto jovem! Máximo 20 caracteres :)
+        </div>
+      </div>
+      <table class="table">
+        <tr>
+          <th>Log<small> | Textos</small></th>
+        </tr>
+        <tr v-for="texto in captarTexto.textos">
+          <td>{{'Você digitou: ' + texto}}</td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          // captar texto
+          captarTexto: {
+            textoDigitado: "",
+            textos: []
+          }
+        },
+        // Métodos
+        methods: {
+          enviarTexto: function() {
+            this.captarTexto.textos.push(this.captarTexto.textoDigitado);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
