@@ -1,2 +1,2 @@
-# logText
+# logTexto
 Estudo VueJs
